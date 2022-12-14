@@ -5,30 +5,30 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const keyboardFrequencyMap = {
         '90': 261.625565300598634,  //Z - C
         '83': 277.182630976872096, //S - C#
-        '88': 293.664767917407560,  //X - D
+        '88': 293.664767917407560, //X - D
         '68': 311.126983722080910, //D - D#
-        '67': 329.627556912869929,  //C - E
-        '86': 349.228231433003884,  //V - F
+        '67': 329.627556912869929, //C - E
+        '86': 349.228231433003884, //V - F
         '71': 369.994422711634398, //G - F#
-        '66': 391.995435981749294,  //B - G
+        '66': 391.995435981749294, //B - G
         '72': 415.304697579945138, //H - G#
-        '78': 440.000000000000000,  //N - A
+        '78': 440.000000000000000, //N - A
         '74': 466.163761518089916, //J - A#
-        '77': 493.883301256124111,  //M - B
-        '81': 523.251130601197269,  //Q - C
+        '77': 493.883301256124111, //M - B
+        '81': 523.251130601197269, //Q - C
         '50': 554.365261953744192, //2 - C#
-        '87': 587.329535834815120,  //W - D
+        '87': 587.329535834815120, //W - D
         '51': 622.253967444161821, //3 - D#
-        '69': 659.255113825739859,  //E - E
-        '82': 698.456462866007768,  //R - F
+        '69': 659.255113825739859, //E - E
+        '82': 698.456462866007768, //R - F
         '53': 739.988845423268797, //5 - F#
-        '84': 783.990871963498588,  //T - G
+        '84': 783.990871963498588, //T - G
         '54': 830.609395159890277, //6 - G#
-        '89': 880.000000000000000,  //Y - A
+        '89': 880.000000000000000, //Y - A
         '55': 932.327523036179832, //7 - A#
-        '85': 987.766602512248223,  //U - B
-        '73': 1046.50,  //I - C
-        '57': 1108.73,  //9 - C#
+        '85': 987.766602512248223, //U - B
+        '73': 1046.50, //I - C
+        '57': 1108.73, //9 - C#
         '79': 1174.66, //O - D
         '48': 1244.51, //0 - D#
         '80': 1318.51, //P - E
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var lfos = {}
     var activeNotes = 0.0
     var currGain = 1.0
-    var color = 0;
+    var color = 1;
     var red = true;
 
 
@@ -71,25 +71,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     function keyDown(event) {
         const key = (event.detail || event.which).toString();
         if (keyboardFrequencyMap[key] && !activeOscillators[key]) {
-            var synthType = document.getElementById('synthesis').value
             activeNotes = activeNotes + 1.0;
             currGain =(1.0/activeNotes);
-            sparseKeys = Object.keys(activeGains) //access only filled array elements
+            sparseKeys = Object.keys(activeGains); //access only filled array elements
             if (activeNotes > 1.0){ //decrease amplitude of all existing notes to make room for new one
                 for (let i = 0; i < sparseKeys.length; i++){
-                    if(synthType == "add"){
-                        activeGains[sparseKeys[i]].gain.setTargetAtTime(currGain/3, audioCtx.currentTime, 1);
-                    }
-                    else if(synthType == "am"){
-                        activeGains[sparseKeys[i]].gain.setTargetAtTime(currGain/2, audioCtx.currentTime, 1);
-                    }
-                    else{
-                        activeGains[sparseKeys[i]].gain.setTargetAtTime(currGain, audioCtx.currentTime, 1);
-                    }
-                    
+                    activeGains[sparseKeys[i]].gain.setTargetAtTime(currGain/3, audioCtx.currentTime, 1);
                 }
             }
-            playNote(key, currGain, synthType);
+            playNote(key, currGain);
         }
     }
 
@@ -143,53 +133,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         gainNode.gain.setTargetAtTime((currGain/3)*sustain, audioCtx.currentTime + attack, decay) //sustain
     }
 
-
-   function am(gainNode, currGain, key, osc, attack, decay, sustain){
-        mf = audioCtx.createOscillator()
-        mf.frequency.value = 101 //why not
-        mf.type = document.getElementById('waveform2').value;
-
-        const mod = audioCtx.createGain()
-        const depth = audioCtx.createGain()
-
-        depth.gain.value = 0.5
-        mod.gain.value = 1.0 - depth.gain.value
-
-        mf.connect(depth).connect(mod.gain);
-        osc.connect(mod);
-        mod.connect(gainNode).connect(globalGain);
-
-        partials[key] = [mf]
-        osc.start();
-        mf.start()
-        gainNode.gain.setTargetAtTime(currGain/2, audioCtx.currentTime, attack) //envelope attack
-
-        gainNode.gain.setTargetAtTime((currGain/2)*sustain, audioCtx.currentTime + attack, decay)
-    }
-
-    function fm(gainNode, currGain, key, osc, attack, decay, systain){
-        mf = audioCtx.createOscillator()
-        mf.frequency.value = osc.frequency.value * document.getElementById('frequency2').value
-        mf.type = document.getElementById('waveform2').value;
-
-        var mod = audioCtx.createGain()
-        mod.gain.value = 101
-
-        mf.connect(mod);
-        mod.connect(osc.frequency);
-        
-        osc.connect(gainNode).connect(globalGain);
-
-        partials[key] = [mf]
-        osc.start();
-        mf.start()
-        gainNode.gain.setTargetAtTime(currGain/2, audioCtx.currentTime, attack) //envelope attack
-        
-        gainNode.gain.setTargetAtTime((currGain/2)*sustain, audioCtx.currentTime + attack, decay)
-
-    }
-
-    function playNote(key, currGain, synthType) {
+    function playNote(key, currGain) {
         const osc = audioCtx.createOscillator();
         const lfo = audioCtx.createOscillator();
         lfo.frequency.value = document.getElementById('lfoFreq').value;
@@ -207,14 +151,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         var decay = timeMap[document.getElementById('decay').value];
         var sustain = document.getElementById('sustain').value;
         
-        if (synthType == "add"){
-            additive(gainNode, currGain, key, osc, attack, decay, sustain)
-        }
-        else if (synthType == "am"){
-            am(gainNode, currGain, key, osc, attack, decay, sustain)
-        }else{ //default to fm, why? idk, vibes
-            fm(gainNode, currGain, key, osc, attack, decay, sustain)
-        }
+        additive(gainNode, currGain, key, osc, attack, decay, sustain)
+
 
         funTime();
     }
@@ -224,8 +162,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         colors = ['#345995', '#1C949D', '#03CEA4', '#41AE8B', '#7F8E71', '#BD6E57', '#FB4D3D', '#E33147', '#CA1551']
         if (red){
             document.body.style.color = colors[color++]
+            document.getElementsByClassName("slider round").style.backgroundColor = colors[color]
         }else{
             document.body.style.color = colors[color--]
+            document.getElementsByClassName("slider round").style.backgroundColor = colors[color]
+
+
         }
         if (color == 8){
             red = false

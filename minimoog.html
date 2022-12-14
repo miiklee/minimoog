@@ -1,57 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<style>
-    datalist{
-        display: flex;
-        justify-content: space-between;
-        width: 200px;
-    }
-    datalist.normal{
-        justify-content: space-between;
-        width: 205px;
-    }
-    datalist.first{
-        justify-content: space-between;
-        width: 95px;
-    }
-    datalist.second{
-        justify-content: space-between;
-        width: 100px;
-    }
-    div.freqSlider{
-        padding-left: 20px;
-        width: 200px;
-        display: inline-block;
-    }
-    input{
-        width: 200px;
-    }
-    .title{
-        font-weight: bold;
-    }
-    .label{
-        font-style: italic;
-        padding-left: 15px;
-        display: inline-block;
-    }
-    .osc{
-        display: block;
-        margin: 20px;
-        padding: 10px;
-    }
-    .section{
-        display: inline-block;
-        padding: 20px;
-        vertical-align: top;
-
-    }h2{
-        margin: 0%;
-    }
-    h6{
-        margin:0%;
-    }
-</style>
+<style src="minimoog.css"></style>
 
 <head>
 </head>
@@ -59,24 +9,148 @@
 <h1>
     primitive minimoog vst
 </h1>
-
-<label class="title"> synthesis type: </label>
-<div>
-    <label class="label" for="synthesis">waveform: </label>
-    <select name="synthesis" id="synthesis">
-        <option value="add">additive</option>
-        <option value="am">AM</option>
-        <option value="fm">FM</option>
-    </select>
-</div>
-
 <div class="section">
-    <h2> oscillator bank </h2>
-    <h6>use osc2 and osc3 for additive, only osc2 for AM or FM</h6>
+    <center><h2>controllers</h2></center>
+    <label class="title"> modulation mix </label>
+            <div>
+                <div class="freqSlider">
+                    <input type="range" id="tune" name="tune" list="tm" min="0" max="10">
+                    <datalist id="tm" class="normal">
+                        <datalist class="first">
+                            <option value="0"></option>
+                            <option value="1"></option>
+                            <option value="2" label="2"></option>
+                            <option value="3"></option>
+                            <option value="4" label="4"></option>
+                        </datalist>
+                        <datalist class="second">
+                            <option value="5"></option>
+                            <option value="6" label="6"></option>
+                            <option value="7"></option>
+                            <option value="8" label="8"></option>
+                            <option value="9"></option>
+                            <option value="10" ></option>
+                        </datalist>
+                    </datalist>
+                </div>
+            </div>
+            <div>
+                <div class="freqSlider">
+                <datalist>
+                    <option label="osc. 3/ filter eg"></option>
+                    <option label="noise/LFO"></option>
+                </datalist>
+                </div>
+            </div>
+        <! frequency >
+        <div>
+            <label for="frequency2" class="label" style="display: inline-block;"> frequency: </label>
+            <div class="freqSlider">
+                <input type="range" id="frequency2" name="frequency2" min="-7" max="7" list="tickmarks">
+                <datalist id="tickmarks">
+                    <datalist class="first">
+                        <option value="-7" label="-7"></option>
+                        <option value="-6"></option>
+                        <option value="-5" label="-5"></option>
+                        <option value="-4"></option>
+                        <option value="-3" label="-3"></option>
+                        <option value="-2"></option>
+                        <option value="-1" label="-1"></option>
+                    </datalist>
+                    <datalist class="second">
+                        <option value="0"></option>
+                        <option value="1" label="1"></option>
+                        <option value="2"></option>
+                        <option value="3" label="3"></option>
+                        <option value="4"></option>
+                        <option value="5" label="5"></option>
+                        <option value="6"></option>
+                        <option value="7" label="7"></option>
+                    </datalist>
+                </datalist>
+            </div>
+        </div>
+
+        <! frequency >
+        <div>
+            <label for="frequency2" class="label" style="display: inline-block;"> frequency: </label>
+            <div class="freqSlider">
+                <input type="range" id="frequency2" name="frequency2" min="-7" max="7" list="tickmarks">
+                <datalist id="tickmarks">
+                    <datalist class="first">
+                        <option value="-7" label="-7"></option>
+                        <option value="-6"></option>
+                        <option value="-5" label="-5"></option>
+                        <option value="-4"></option>
+                        <option value="-3" label="-3"></option>
+                        <option value="-2"></option>
+                        <option value="-1" label="-1"></option>
+                    </datalist>
+                    <datalist class="second">
+                        <option value="0"></option>
+                        <option value="1" label="1"></option>
+                        <option value="2"></option>
+                        <option value="3" label="3"></option>
+                        <option value="4"></option>
+                        <option value="5" label="5"></option>
+                        <option value="6"></option>
+                        <option value="7" label="7"></option>
+                    </datalist>
+                </datalist>
+            </div>
+        </div>
+
+        <! frequency >
+        <div>
+            <label for="frequency2" class="label" style="display: inline-block;"> frequency: </label>
+            <div class="freqSlider">
+                <input type="range" id="frequency2" name="frequency2" min="-7" max="7" list="tickmarks">
+                <datalist id="tickmarks">
+                    <datalist class="first">
+                        <option value="-7" label="-7"></option>
+                        <option value="-6"></option>
+                        <option value="-5" label="-5"></option>
+                        <option value="-4"></option>
+                        <option value="-3" label="-3"></option>
+                        <option value="-2"></option>
+                        <option value="-1" label="-1"></option>
+                    </datalist>
+                    <datalist class="second">
+                        <option value="0"></option>
+                        <option value="1" label="1"></option>
+                        <option value="2"></option>
+                        <option value="3" label="3"></option>
+                        <option value="4"></option>
+                        <option value="5" label="5"></option>
+                        <option value="6"></option>
+                        <option value="7" label="7"></option>
+                    </datalist>
+                </datalist>
+            </div>
+        </div>
+    <center>
+    <label class="switch" style="margin-right: 60px; margin-left: 20px; margin-top: 20px;">
+        <input type="checkbox">
+        <span class="slider" style="background-color: #345995;"></span>
+      </label>
     
+    <label class="switch">
+        <input type="checkbox" style="margin-left: 40px;">
+        <span class="slider" style="background-color: #345995;"></span>
+      </label>
+    <div>
+      osc. 3 	&nbsp;	&nbsp;	
+      filter eg &nbsp;	&nbsp;	&nbsp;	
+      noise &nbsp;	&nbsp;	
+      lfo
+    </div>
+    </center>
+</div>
+<div class="section">
+    <h2> oscillator bank </h2>    
         <div class="osc">
             <! osc1 waveform selection >
-            <label class="title"> osc 1 </label>
+            <label class="title"> oscillator - 1 </label>
             <div>
                 <label class="label" for="waveform1">waveform: </label>
                 <select name="waveform1" id="waveform1">
@@ -90,7 +164,7 @@
 
         <div class="osc">
             <! osc2 >
-            <label class="title" style="padding-top: 10px;"> osc 2 </label>
+            <label class="title" style="padding-top: 10px;"> oscillator - 2 </label>
             <! waveform >
             <div>
                 <label class="label" for="waveform2">waveform: </label>
@@ -133,7 +207,7 @@
 
         <div class="osc">
             <! osc3 >
-            <label class="title"> osc 3 </label>
+            <label class="title"> oscillator - 3 </label>
             <! waveform >
             <div>
                 <label class="label" for="waveform3">waveform: </label>
@@ -176,9 +250,187 @@
         </div>
     
 </div>
-
+<div class="section">
+    <h2>mixer</h2>
+    </div>
 <div class="section">
     <h2>modifiers</h2>
+    <h3> filter </h3>
+    
+        <label class="title"> cutoff frequency </label>
+            <div>
+                <div class="freqSlider">
+                    <input type="range" id="attack" name="attack" list="tm" min="0" max="10">
+                    <datalist id="tm" class="normal">
+                        <datalist class="first">
+                            <option value="0" label="10"></option>
+                            <option value="1"></option>
+                            <option value="2" label="200"></option>
+                            <option value="3"></option>
+                            <option value="4" label="600"></option>
+                        </datalist>
+                        <datalist class="second">
+                            <option value="5"></option>
+                            <option value="6" label="1"></option>
+                            <option value="7"></option>
+                            <option value="8" label="5"></option>
+                            <option value="9"></option>
+                            <option value="10" label="10"></option>
+                        </datalist>
+                    </datalist>
+                </div>
+            </div>
+            <div>
+                <div class="freqSlider">
+                <datalist>
+                    <option label="m-sec."></option>
+                    <option label="sec."></option>
+                </datalist>
+                </div>
+            </div>
+
+
+
+
+            <label class="title"> emphasis </label>
+            <div>
+                <div class="freqSlider">
+                    <input type="range" id="decay" name="decay" min="0" max="10" list="tm">
+                    <datalist id="tm" class="normal">
+                        <datalist class="first">
+                            <option value="0" label="10"></option>
+                            <option value="1"></option>
+                            <option value="2" label="200"></option>
+                            <option value="3"></option>
+                            <option value="4" label="600"></option>
+                        </datalist>
+                        <datalist class="second">
+                            <option value="5"></option>
+                            <option value="6" label="1"></option>
+                            <option value="7"></option>
+                            <option value="8" label="5"></option>
+                            <option value="9"></option>
+                            <option value="10" label="10"></option>
+                        </datalist>
+                    </datalist>
+                </div>
+            </div>
+            <div>
+                <div class="freqSlider">
+                <datalist>
+                    <option label="m-sec."></option>
+                    <option label="sec."></option>
+                </datalist>
+                </div>
+            </div>
+
+            <label class="title"> amount of contour </label>
+            <div>
+                <div class="freqSlider">
+                    <input type="range" id="sustain" name="sustain" min="0" max="1" step=".1" list="tms">
+                    <datalist id="tms" class="normal">
+                        <option value=0 label="0"></option>
+                        <option value=0.1></option>
+                        <option value=0.2 label="2"></option>
+                        <option value=0.3></option>
+                        <option value=0.4 label="4"></option>
+                        <option value=0.5></option>
+                        <option value=0.6 label="6"></option>
+                        <option value=0.7></option>
+                        <option value=0.8 label="8"></option>
+                        <option value=0.9></option>
+                        <option value=1 label="10"></option>
+                    </datalist>
+                </div>
+            </div>
+
+    
+        <label class="title"> attack time </label>
+            <div>
+                <div class="freqSlider">
+                    <input type="range" id="attack" name="attack" list="tm" min="0" max="10">
+                    <datalist id="tm" class="normal">
+                        <datalist class="first">
+                            <option value="0" label="10"></option>
+                            <option value="1"></option>
+                            <option value="2" label="200"></option>
+                            <option value="3"></option>
+                            <option value="4" label="600"></option>
+                        </datalist>
+                        <datalist class="second">
+                            <option value="5"></option>
+                            <option value="6" label="1"></option>
+                            <option value="7"></option>
+                            <option value="8" label="5"></option>
+                            <option value="9"></option>
+                            <option value="10" label="10"></option>
+                        </datalist>
+                    </datalist>
+                </div>
+            </div>
+            <div>
+                <div class="freqSlider">
+                <datalist>
+                    <option label="m-sec."></option>
+                    <option label="sec."></option>
+                </datalist>
+                </div>
+            </div>
+
+
+
+
+            <label class="title"> decay time </label>
+            <div>
+                <div class="freqSlider">
+                    <input type="range" id="decay" name="decay" min="0" max="10" list="tm">
+                    <datalist id="tm" class="normal">
+                        <datalist class="first">
+                            <option value="0" label="10"></option>
+                            <option value="1"></option>
+                            <option value="2" label="200"></option>
+                            <option value="3"></option>
+                            <option value="4" label="600"></option>
+                        </datalist>
+                        <datalist class="second">
+                            <option value="5"></option>
+                            <option value="6" label="1"></option>
+                            <option value="7"></option>
+                            <option value="8" label="5"></option>
+                            <option value="9"></option>
+                            <option value="10" label="10"></option>
+                        </datalist>
+                    </datalist>
+                </div>
+            </div>
+            <div>
+                <div class="freqSlider">
+                <datalist>
+                    <option label="m-sec."></option>
+                    <option label="sec."></option>
+                </datalist>
+                </div>
+            </div>
+
+            <label class="title"> sustain level </label>
+            <div>
+                <div class="freqSlider">
+                    <input type="range" id="sustain" name="sustain" min="0" max="1" step=".1" list="tms">
+                    <datalist id="tms" class="normal">
+                        <option value=0 label="0"></option>
+                        <option value=0.1></option>
+                        <option value=0.2 label="2"></option>
+                        <option value=0.3></option>
+                        <option value=0.4 label="4"></option>
+                        <option value=0.5></option>
+                        <option value=0.6 label="6"></option>
+                        <option value=0.7></option>
+                        <option value=0.8 label="8"></option>
+                        <option value=0.9></option>
+                        <option value=1 label="10"></option>
+                    </datalist>
+                </div>
+            </div>
     <h3> loudness contour </h3>
     
         <label class="title"> attack time </label>
@@ -304,5 +556,5 @@
 
 </div>
 
-<script src = "synth.js"> </script>
+<script src = "minimoog.js"> </script>
 </html>
