@@ -1,15 +1,28 @@
 body{
     color: #345995;
+    text-transform: uppercase;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
+
+
+/* INPUTS */
+
+/* slider formatting */
+div.freqSlider{
+    padding-left: 20px;
+    width: 200px;
+    display: inline-block;
+}
+input[type="range"] { width: 200px; }
+
+option { padding: 0; }
+
 datalist{
     display: flex;
     justify-content: space-between;
     width: 200px;
 }
-datalist.normal{
-    justify-content: space-between;
-    width: 205px;
-}
+/* need different spacing to account for if negative sign or not */
 datalist.first{
     justify-content: space-between;
     width: 95px;
@@ -18,14 +31,24 @@ datalist.second{
     justify-content: space-between;
     width: 100px;
 }
-div.freqSlider{
-    padding-left: 20px;
-    width: 200px;
-    display: inline-block;
-}
-input{
-    width: 200px;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .title{
     font-weight: bold;
 }
@@ -44,8 +67,17 @@ input{
     padding: 20px;
     vertical-align: top;
 
-}h2{
+}
+.mini{
+    display: inline-block;
+    padding: 0px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+h2{
     margin: 0%;
+    text-align: center;
 }
 h6{
     margin:0%;
@@ -93,6 +125,7 @@ transition: .4s;
 border-radius: 50%;
 }
 
+/* move slider when clicked*/
 input:checked + .slider:before {
 -webkit-transform: translateX(26px);
 -ms-transform: translateX(26px);
