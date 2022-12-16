@@ -153,28 +153,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         
         additive(gainNode, currGain, key, osc, attack, decay, sustain)
 
-
-        funTime();
     }
 
-    function funTime(){
-        //switch color with every new button press, press 2 to skip a color, or 3 to skip 2 etc.
-        colors = ['#345995', '#1C949D', '#03CEA4', '#41AE8B', '#7F8E71', '#BD6E57', '#FB4D3D', '#E33147', '#CA1551']
-        if (red){
-            document.body.style.color = colors[color++]
-            document.getElementsByClassName("slider round").style.backgroundColor = colors[color]
-        }else{
-            document.body.style.color = colors[color--]
-            document.getElementsByClassName("slider round").style.backgroundColor = colors[color]
-
-
-        }
-        if (color == 8){
-            red = false
-        }if (color == -1){
-            red = true
-        }
-    }
 
 
 
