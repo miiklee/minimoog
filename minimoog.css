@@ -1,49 +1,9 @@
+
+/* overall formatting */
 body{
     text-transform: uppercase;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
-
-
-/* INPUTS */
-
-/* slider formatting */
-div.freqSlider{
-    padding-left: 20px;
-    width: 200px;
-    display: inline-block;
-}
-input[type="range"] { width: 200px; }
-
-option { padding: 0; }
-
-datalist{
-    display: flex;
-    justify-content: space-between;
-    width: 200px;
-}
-/* need different spacing to account for if negative sign or not */
-datalist.first{
-    justify-content: space-between;
-    width: 95px;
-}
-datalist.second{
-    justify-content: space-between;
-    width: 100px;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .title{
     font-weight: bold;
@@ -79,6 +39,34 @@ h6{
     margin:0%;
 }
 
+/* INPUTS */
+
+/* slider formatting */
+div.freqSlider{
+    padding-left: 20px;
+    width: 200px;
+    display: inline-block;
+}
+input[type="range"] { width: 200px; }
+
+option { padding: 0; }
+
+datalist{
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+/* need different spacing to account for if negative sign or not */
+datalist.first{
+    justify-content: space-between;
+    width: 95px;
+}
+datalist.second{
+    justify-content: space-between;
+    width: 100px;
+}
+
+
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -106,9 +94,6 @@ h6{
     -webkit-transition: .4s;
     transition: .4s;
   }
-  .slider.pink{
-    background-color: rgb(238, 238, 238);
-  }
   
   .slider:before {
     position: absolute;
@@ -121,6 +106,12 @@ h6{
     -webkit-transition: .4s;
     transition: .4s;
   }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
   
   input:checked + .slider {
     background-color: black;
@@ -129,6 +120,11 @@ h6{
   input:focus + .slider {
     box-shadow: 0 0 1px black;
   }
+
+  .slider.pink{
+    background-color: rgb(238, 238, 238);
+  }
+
   input:checked + .slider.pink {
     background-color: hotpink;
   }
@@ -136,6 +132,8 @@ h6{
   input:focus + .slider.pink {
     box-shadow: 0 0 1px hotpink;
   }
+
+
   .slider.orange {
     background-color: rgba(249, 143, 73, 0.3);
   }
@@ -146,20 +144,15 @@ h6{
   input:focus + .slider.orange {
     box-shadow: 0 0 1px rgb(249, 143, 73);
   }
-  input:checked + .slider.blue {
-    background-color: rgb(60, 197, 243);
-  }
+  
    .slider.blue {
     background-color: rgb(60, 197, 243, 0.3);
   }
-  
+  input:checked + .slider.blue {
+    background-color: rgb(60, 197, 243);
+  }
   input:focus + .slider.blue {
     box-shadow: 0 0 1px rgb(60, 197, 243);
   }
   
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
 

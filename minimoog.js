@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         "10" : 10.0,
     }
     
+        
     window.addEventListener('keydown', keyDown, false);
     window.addEventListener('keyup', keyUp, false);
     //attack in playNote, release in keyDown, sustain established by length of time key held for, decay is 0
@@ -57,9 +58,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     var lfos = {}
     var activeNotes = 0.0
     var currGain = 1.0
-    var color = 1;
-    var red = true;
-
+    var oscMod;
+    var filtMod;
+    var o3control;
+    var tune;
+    var glide;
+    var whiteNoise;
+    var pinkNoise;
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -135,9 +140,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     function playNote(key, currGain) {
         const osc = audioCtx.createOscillator();
-        const lfo = audioCtx.createOscillator();
-        lfo.frequency.value = document.getElementById('lfoFreq').value;
-        lfo.type = document.getElementById('lfowaveform').value;
+        
         osc.frequency.setValueAtTime(keyboardFrequencyMap[key], audioCtx.currentTime);
         const gainNode = audioCtx.createGain();
         gainNode.gain.value = 0
@@ -155,12 +158,90 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     }
 
+    function updateModSettings(){
+        oscMod = document.getElementById("omSwitch").checked;
+        filtMod = document.getElementById("fmSwitch").checked;
+        o3control = document.getElementById("o3Switch").checked;
+        tune = document.getElementById().value;
+        glide = document.getElementById().value;
 
+        //set up proportions of modulation
+        var modMix = document.getElementById().value;
+        var min = audioCtx.createGain();
+        min.gain.value = (10-modMix)/10.0; //keep gains below 1
+        var max = audioCtx.createGain();
+        max.gain.value = modMix/10.0;
+
+
+
+        if(document.getElementById("3 or eg").checked){
+            // i don't understand how to use an ADSR envelope as a modulation source
+        }else{
+            var osc3 = audioCtx.createOscillator();
+            osc3.frequency.value = document.getElementById('frequency3').value;
+            osc3.type = document.getElementById('waveform3').value;
+            osc3.connect(min);
+        }
+        if(document.getElementById("n or lfo").checked){
+            var lfo = audioCtx.createOscillator();
+            lfo.frequency.value = document.getElementById('lfoFreq').value;
+            lfo.type = document.getElementById('lfowaveform').value;
+            lfo.connect(max);
+        }else{
+            if (document.getElementById("noiseSwitch").checked){
+                pn();
+                pinkNoise.connect(max);
+            }
+            else{
+                wn();
+                whiteNoise.connect(max);
+            }
+        }
+
+    }
+
+
+    function wn(){
+        //white noise generator
+        //both noise generators from here https://noisehack.com/generate-noise-web-audio-api/
+        var bufferSize = 2 * audioContext.sampleRate,
+        noiseBuffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate),
+        output = noiseBuffer.getChannelData(0);
+        for (var i = 0; i < bufferSize; i++) {
+            output[i] = Math.random() * 2 - 1;
+        }
+
+        whiteNoise = audioContext.createBufferSource();
+        whiteNoise.buffer = noiseBuffer;
+        whiteNoise.loop = true;
+        whiteNoise.start(0);
+    }
+    
+    function pn(){
+        //pink noise generator
+        var bufferSize = 4096;
+        pinkNoise = (function() {
+            var b0, b1, b2, b3, b4, b5, b6;
+            b0 = b1 = b2 = b3 = b4 = b5 = b6 = 0.0;
+            var node = audioContext.createScriptProcessor(bufferSize, 1, 1);
+            node.onaudioprocess = function(e) {
+                var output = e.outputBuffer.getChannelData(0);
+                for (var i = 0; i < bufferSize; i++) {
+                    var white = Math.random() * 2 - 1;
+                    b0 = 0.99886 * b0 + white * 0.0555179;
+                    b1 = 0.99332 * b1 + white * 0.0750759;
+                    b2 = 0.96900 * b2 + white * 0.1538520;
+                    b3 = 0.86650 * b3 + white * 0.3104856;
+                    b4 = 0.55000 * b4 + white * 0.5329522;
+                    b5 = -0.7616 * b5 - white * 0.0168980;
+                    output[i] = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
+                    output[i] *= 0.11; // (roughly) compensate for gain
+                    b6 = white * 0.115926;
+                }
+            }
+            return node;
+        })();
+    }
 
 
 })
-
-
-
-
-        
